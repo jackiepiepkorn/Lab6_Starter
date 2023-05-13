@@ -93,7 +93,7 @@ class RecipeCard extends HTMLElement {
 `
     // A5. TODO - Append the <style> and <article> elements to the Shadow DOM
     shadow.appendChild(shadowStyle);
-    shadow.appendChild(this.style);
+    shadow.appendChild(shadowArticle);
   }
 
   /**
@@ -122,32 +122,37 @@ class RecipeCard extends HTMLElement {
     if (!data) return;
 
     // A6. TODO - Select the <article> we added to the Shadow DOM in the constructor
-    const myArticle = this.shadowRoot.querySelector('shadowArticle');
+    var myArticle = this.shadowRoot.querySelector('shadowArticle');
     // A7. TODO - Set the contents of the <article> with the <article> template given in
     //           cardTemplate.html and the data passed in (You should only have one <article>,
     //           do not nest an <article> inside another <article>). You should use Template
     //           literals (tempalte strings) and element.innerHTML for this.
-    shadowArticle = 
-    `<article>
-    <img src="https://link-to-article.com/recipe-thumbnail.jpg"
+    myArticle.innerHTML = `<article>
+    <img src = "${data.imgSrc}" alt = "${data.imgAlt}">
       alt="Recipe Title">
     <p class="title">
-      <a href="https://link-to-article.com">Title</a>
+      <a href="${data.titleLnk}">${data.titleTxt}</a>
     </p>
-    <p class="organization">The Chef's Organization</p>
+    <p class="organization">${data.organization}</p>
     <div class="rating">
-      <span>5</span>
-      <img src="/assets/images/icons/5-star.svg" alt="5 stars">
-      <span>(500)</span>
+      <span>${data.rating}</span>
+      <img src="/assets/images/icons/${data.rating}-star.svg" alt="${data.rating} stars">
+      <span>(${data.numRatings})</span>
     </div>
-    <time>50 min</time>
+    <time>${data.lengthTime}</time>
     <p class="ingredients">
-      Comma, Separated, List, of, Ingredients
+      ${data.ingredients}
     </p>
   </article>`
-    shadow.innerHTML = shadowArticle;
+  //myArticle.innerHTML
+  // const articleElement = document.querySelector('article');
+  // articleElement.innerHTML = '';
+  // articleElement.appendChild(myArticle);
+  //shadow.innerHTML = myArticle;
   }
 }
 
 // A8. TODO - Define the Class as a customElement so that you can create
 //           'recipe-card' elements
+
+customElements.define('recipe-card', RecipeCard); 
