@@ -44,10 +44,15 @@ function addRecipesToDocument(recipes) {
   //            create a <recipe-card> element for each one, and populate
   //            each <recipe-card> with that recipe data using element.data = ...
   //            Append each element to <main>
-  for (let recipe of recipes) {
-    const recipeCard = document.createElement('recipe-card');
-    recipeCard.data = recipe;
-    mainElement.appendChild(recipeCard);
+  if (recipes == null) {
+
+  }
+  else {
+    for (let recipe of recipes) {
+      const recipeCard = document.createElement('recipe-card');
+      recipeCard.data = recipe;
+      mainElement.appendChild(recipeCard);
+    }
   }
 
 }
@@ -101,7 +106,12 @@ function initFormHandler() {
   // B9. TODO - Get the recipes array from localStorage, add this new recipe to it, and
   //            then save the recipes array back to localStorage
   const recipes = getRecipesFromStorage();
-  recipes.push(recipeObject);
+  if (recipeObject == null) {
+
+  }
+  else {
+    recipes.push(recipeObject);
+  }
   saveRecipesToStorage(recipes);
 });
 
